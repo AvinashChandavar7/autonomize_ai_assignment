@@ -13,14 +13,17 @@ import {
 
 const router = Router();
 
+router.get('/search', searchUsers);
+
+router.get('/sorted', sortUsers);
+
 router.get('/:username', getUserAndSave);
 
 router.get('/:username/friends', findMutualFollowers);
 
 router.patch('/:username', updateUser);
+
 router.delete('/:username', deleteUser);
 
-router.get('/search', searchUsers);
-router.get('/sorted', sortUsers);
 
 export default router;

@@ -1,3 +1,5 @@
+import { FilterQuery } from "mongoose";
+
 import { ApiError } from "../utils/ApiError";
 import { ApiResponse } from "../utils/ApiResponse";
 import { asyncHandler } from "../utils/asyncHandler";
@@ -97,7 +99,22 @@ const deleteUser = asyncHandler(async (req, res) => {
 
 const searchUsers = asyncHandler(async (req, res) => {
 
-  return res.status(200).json(new ApiResponse(200, {}, ""));
+  const { username, location } = req.query;
+
+
+  let query: FilterQuery<typeof User> = {};
+
+  if (username) {
+    query = { ...query, username: { $regex: username, $options: 'i' } };
+  }
+
+  if (location) {
+    query = { ...query, location: { $regex: location, $options: 'i' } };
+  }
+
+  const users = await User.find(query);
+
+  return res.status(200).json(new ApiResponse(200, users, "Found the User"));
 });
 
 const sortUsers = asyncHandler(async (req, res) => {
