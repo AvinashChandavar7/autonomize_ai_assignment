@@ -10,6 +10,8 @@ import { fetchFollowers, fetchFollowing, fetchGitHubUser } from "../utils/GitHub
 
 
 const getUserAndSave = asyncHandler(async (req, res) => {
+  //#swagger.tags = ['User']
+
   const { username } = req.params;
 
   if (!username) {
@@ -40,6 +42,8 @@ const getUserAndSave = asyncHandler(async (req, res) => {
 });
 
 const findMutualFollowers = asyncHandler(async (req, res) => {
+  //#swagger.tags = ['User']
+
   const { username } = req.params;
 
   if (!username) {
@@ -61,8 +65,9 @@ const findMutualFollowers = asyncHandler(async (req, res) => {
 });
 
 const updateUser = asyncHandler(async (req, res) => {
-  const { username } = req.params;
+  //#swagger.tags = ['User']
 
+  const { username } = req.params;
 
   if (!username) {
     throw new ApiError(400, "Invalid Username");
@@ -82,6 +87,8 @@ const updateUser = asyncHandler(async (req, res) => {
 });
 
 const deleteUser = asyncHandler(async (req, res) => {
+  //#swagger.tags = ['User']
+
   const { username } = req.params;
 
   if (!username) {
@@ -98,6 +105,7 @@ const deleteUser = asyncHandler(async (req, res) => {
 });
 
 const searchUsers = asyncHandler(async (req, res) => {
+  //#swagger.tags = ['User - filter']
 
   const { username, location } = req.query;
 
@@ -118,8 +126,39 @@ const searchUsers = asyncHandler(async (req, res) => {
 });
 
 const sortUsers = asyncHandler(async (req, res) => {
-  return res.status(200).json(new ApiResponse(200, {}, ""));
+  //#swagger.tags = ['User - filter']
+
+  const { sortBy } = req.query;
+
+  let sortOptions = {};
+
+  switch (sortBy) {
+    case "public_repos":
+      sortOptions = { public_repos: -1 };
+      break;
+    case "public_gists":
+      sortOptions = { public_gists: -1 };
+      break;
+    case "followers":
+      sortOptions = { followers: -1 };
+      break;
+    case "following":
+      sortOptions = { following: -1 };
+      break;
+    case "created_at":
+      sortOptions = { createdAt: -1 };
+      break;
+    default:
+      sortOptions = { createdAt: 1 };
+      break;
+  }
+
+
+  const users = await User.find().sort(sortOptions);
+
+  return res.status(200).json(new ApiResponse(200, users, "Users sorted successfully."));
 });
+
 
 
 
