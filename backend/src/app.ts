@@ -24,7 +24,9 @@ app.use(express.static(path.join(__dirname, "public")));
 app.use(cookieParser());
 
 // Routes
+import usersRoutes from "./routes/users.routes"
 
+app.use("/api/v1/users", usersRoutes)
 
 
 const options = { explorer: true, }
