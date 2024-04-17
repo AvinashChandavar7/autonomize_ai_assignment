@@ -61,11 +61,22 @@ const findMutualFollowers = asyncHandler(async (req, res) => {
 const updateUser = asyncHandler(async (req, res) => {
   const { username } = req.params;
 
-  if (username) {
+
+  if (!username) {
     throw new ApiError(400, "Invalid Username");
   }
 
-  return res.status(200).json(new ApiResponse(200, {}, ""));
+  const updatedUser = await User.findOneAndUpdate(
+    { username },
+    req.body,
+    { new: true }
+  );
+
+  if (!updatedUser) {
+    throw new ApiError(404, "User not found");
+  }
+
+  return res.status(200).json(new ApiResponse(200, updatedUser, ""));
 });
 
 const deleteUser = asyncHandler(async (req, res) => {

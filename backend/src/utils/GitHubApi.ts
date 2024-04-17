@@ -14,6 +14,7 @@ export const fetchFollowers = async (username: string): Promise<string[]> => {
   }
 };
 
+
 export const fetchFollowing = async (username: string): Promise<string[]> => {
   try {
     const response = await fetch(`https://api.github.com/users/${username}/following`);
