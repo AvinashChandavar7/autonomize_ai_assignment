@@ -21,6 +21,10 @@ This project utilizes the MERN stack, which includes:
 - **React**: A JavaScript library for building the user interface of the frontend application. It uses hooks for state management and functional components.
 - **Node.js**: The runtime environment for running the JavaScript code on the server side.
 
+#### Swagger UI
+
+- [Swagger API Links](https://autonomize-ai-assignment.onrender.com/api-docs/)
+
 #### Backend API Endpoints
 
 1. **Save GitHub User Data**
@@ -52,12 +56,7 @@ This project utilizes the MERN stack, which includes:
    - **Endpoint**: `GET /api/v1/users/sorted`
    - **Description**: Returns a list of all sorted users from the database, with the option to sort by various fields like "public_repos", "followers", etc.
 
-#### Frontend Features
-
-1. **User Repository and Info Display**: An initial page where users can enter a GitHub username to fetch and display the list of repositories along with some user information.
-2. **Repository Details Page**: A detailed view for each repository showing its description and other relevant data.
-3. **Followers Page**: A separate page to view the followers of the current user, with the ability to navigate to the followers' repositories.
-4. **Search and Navigation**: The application supports searching for users stored in the database and navigating between different views without losing the fetched data.
+## Frontend Documentation
 
 ---
 
