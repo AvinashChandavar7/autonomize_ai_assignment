@@ -14,12 +14,11 @@ export interface IUser extends Document {
   updated_at?: Date;
   friends?: [String],
   isDeleted?: boolean;
-
 }
 
 const userSchema = new Schema<IUser>(
   {
-    username: { type: String, required: true, unique: true },
+    username: { type: String, required: true, },
     location: { type: String, },
     blog: { type: String, },
     bio: { type: String, },
