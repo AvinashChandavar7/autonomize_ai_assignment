@@ -1,6 +1,67 @@
 # Autonomize Ai
 
-#### BACKEND
+## Project Documentation
+
+#### Project Overview
+
+**Autonomize Ai** is a comprehensive web application designed to interact with GitHub's API
+
+And provide a streamlined user experience for viewing GitHub repositories, followers, and mutual connections.
+
+It comprises two main components: a backend server that interacts with the GitHub API and a database to store user data, and a frontend application that presents this data to the user in a user-friendly manner.
+
+#### Technical Stack
+
+**MERN Stack**:
+
+This project utilizes the MERN stack, which includes:
+
+- **MongoDB**: A NoSQL database used to store user data fetched from the GitHub API.
+- **Express.js**: A web application framework for Node.js, used to build the backend API that serves the frontend application and interacts with the database.
+- **React**: A JavaScript library for building the user interface of the frontend application. It uses hooks for state management and functional components.
+- **Node.js**: The runtime environment for running the JavaScript code on the server side.
+
+#### Backend API Endpoints
+
+1. **Save GitHub User Data**
+
+   - **Endpoint**: `POST /api/v1/users`
+   - **Description**: Accepts a GitHub username, fetches the user's details from the GitHub API, and saves it to the database. If the user's data already exists, it prevents re-fetching from the GitHub API.
+
+2. **Find and Save Mutual Friends**
+
+   - **Endpoint**: `POST /api/v1/users/:username/friends`
+   - **Description**: For a given user, identifies mutual followers (friends) and saves this relationship in the database.
+
+3. **Update User Details**
+
+   - **Endpoint**: `PATCH /api/v1/users/:username`
+   - **Description**: Updates fields like "location", "blog", "bio", etc., for a given user in the database.
+
+4. **Soft Delete User**
+
+   - **Endpoint**: `DELETE /api/v1/users/:username`
+   - **Description**: Soft deletes a user's data from the database based on the provided username.
+
+5. **Search Saved Data**
+
+   - **Endpoint**: `GET /api/v1/users/search`
+   - **Description**: Allows searching the database for users based on username, location, and other criteria.
+
+6. **Sort Saved Users**
+   - **Endpoint**: `GET /api/v1/users/sorted`
+   - **Description**: Returns a list of all sorted users from the database, with the option to sort by various fields like "public_repos", "followers", etc.
+
+#### Frontend Features
+
+1. **User Repository and Info Display**: An initial page where users can enter a GitHub username to fetch and display the list of repositories along with some user information.
+2. **Repository Details Page**: A detailed view for each repository showing its description and other relevant data.
+3. **Followers Page**: A separate page to view the followers of the current user, with the ability to navigate to the followers' repositories.
+4. **Search and Navigation**: The application supports searching for users stored in the database and navigating between different views without losing the fetched data.
+
+---
+
+## Assessments
 
 Following is an API which gives GitHub data
 Request Type: GET
