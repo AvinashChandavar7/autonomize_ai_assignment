@@ -12,7 +12,7 @@ export interface IUser extends Document {
   following?: number;
   created_at?: Date;
   updated_at?: Date;
-  friends?: [String],
+  friends?: string[],
   isDeleted?: boolean;
 }
 

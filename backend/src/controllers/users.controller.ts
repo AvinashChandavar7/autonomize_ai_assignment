@@ -4,7 +4,7 @@ import { asyncHandler } from "../utils/asyncHandler";
 
 import User from "../models/users.model";
 
-import { fetchGitHubUser } from "../utils/GitHubApi";
+import { fetchFollowers, fetchFollowing, fetchGitHubUser } from "../utils/GitHubApi";
 
 
 const getUserAndSave = asyncHandler(async (req, res) => {
@@ -40,11 +40,22 @@ const getUserAndSave = asyncHandler(async (req, res) => {
 const findMutualFollowers = asyncHandler(async (req, res) => {
   const { username } = req.params;
 
-  if (username) {
+  if (!username) {
     throw new ApiError(400, "Invalid Username");
   }
 
-  return res.status(200).json(new ApiResponse(200, {}, ""));
+  const userData = await fetchGitHubUser(username);
+  const [followers, following] = await Promise.all([fetchFollowers(username), fetchFollowing(username)]);
+
+  const mutualFollowers = followers.filter(follower => following.includes(follower));
+
+  await User.findOneAndUpdate(
+    { username: userData.login },
+    { $set: { friends: mutualFollowers } },
+    { new: true, upsert: true }
+  );
+
+  return res.status(200).json(new ApiResponse(200, { username, mutualFollowers }, "Mutual followers found"));
 });
 
 const updateUser = asyncHandler(async (req, res) => {

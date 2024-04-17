@@ -15,7 +15,7 @@ const router = Router();
 
 router.get('/:username', getUserAndSave);
 
-router.get('/:username/followers', findMutualFollowers);
+router.get('/:username/friends', findMutualFollowers);
 
 router.patch('/:username', updateUser);
 router.delete('/:username', deleteUser);
