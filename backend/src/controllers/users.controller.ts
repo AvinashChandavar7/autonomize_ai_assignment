@@ -76,17 +76,23 @@ const updateUser = asyncHandler(async (req, res) => {
     throw new ApiError(404, "User not found");
   }
 
-  return res.status(200).json(new ApiResponse(200, updatedUser, ""));
+  return res.status(200).json(new ApiResponse(200, updatedUser, "User updated successfully"));
 });
 
 const deleteUser = asyncHandler(async (req, res) => {
   const { username } = req.params;
 
-  if (username) {
+  if (!username) {
     throw new ApiError(400, "Invalid Username");
   }
 
-  return res.status(200).json(new ApiResponse(200, {}, ""));
+  const deletedUser = await User.findOneAndDelete({ username });
+
+  if (!deletedUser) {
+    throw new ApiError(404, "User not found");
+  }
+
+  return res.status(200).json(new ApiResponse(200, deletedUser, "User soft deleted successfully"));
 });
 
 const searchUsers = asyncHandler(async (req, res) => {
