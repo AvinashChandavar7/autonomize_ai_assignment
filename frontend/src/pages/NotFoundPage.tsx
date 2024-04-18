@@ -1,10 +1,16 @@
 import React from 'react';
+import Header from '../components/Header/Header';
 
 const NotFoundPage: React.FC = () => {
   return (
-    <div>
-      <h1>404 - Page Not Found</h1>
-    </div>
+    <>
+      <Header />
+      <div className="not-found-container">
+        <h1 className="not-found-message">
+          404 - Page Not Found
+        </h1>
+      </div>
+    </>
   );
 };
 

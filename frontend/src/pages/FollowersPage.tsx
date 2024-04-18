@@ -1,9 +1,21 @@
-import React from 'react'
+import React from 'react';
 
-const FollowersPage: React.FC = () => {
+import { useParams } from 'react-router-dom';
+import FollowersLists from '../components/FollowersList/FollowersLists';
+import Header from '../components/Header/Header';
+
+const FollowersList: React.FC = () => {
+  const { username } = useParams<{ username?: string }>();
   return (
-    <div>FollowersPage</div>
-  )
-}
+    <div>
+      <Header />
+      {username
+        ? <FollowersLists username={username} />
+        : <div>No username provided</div>
+      }
+    </div>
+  );
+};
 
-export default FollowersPage
+export default FollowersList;
+
