@@ -6,7 +6,7 @@ import { useGetUserQuery } from '../features/userAPI';
 
 export const useSearchUser = (username?: string) => {
 
-  const [storedUsername, setStoredUsername] = useLocalStorage('username', '');
+  const [storedUsername, setStoredUsername] = useLocalStorage('username', 'mralexgray');
 
 
   const { data: user, isLoading, isError } =
